@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 from fastapi import HTTPException
 
-from src.links.models import Link
+from app.links.models import Link
 
 alphabet = string.ascii_letters + string.digits
 
@@ -25,7 +25,7 @@ class LinkService:
 
         code = data.custom_alias or generate_code()
 
-        link = await self.get_link(code, user_id)
+        link =  await self.repo.get_by_code(code)
 
         if link:
             raise HTTPException(404, "Alias already exists")

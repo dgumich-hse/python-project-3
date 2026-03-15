@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 
 from sqlalchemy import select, delete
 
-from src.links.models import Link
+from app.links.models import Link
 
 
 class LinkRepository:

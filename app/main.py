@@ -4,10 +4,10 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 
-from links.router import router as links_router
-from src.auth.db import create_db_and_tables
-from src.auth.schemas import UserRead, UserCreate
-from src.auth.users import fastapi_users, auth_backend
+from app.links.router import router as links_router
+from app.auth.db import create_db_and_tables
+from app.auth.schemas import UserRead, UserCreate
+from app.auth.users import fastapi_users, auth_backend
 
 
 @asynccontextmanager

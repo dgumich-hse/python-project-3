@@ -3,7 +3,7 @@ import uuid
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text, UUID
 from datetime import datetime, timezone
 
-from src.auth.db import Base
+from app.auth.db import Base
 
 
 class Link(Base):

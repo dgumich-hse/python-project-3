@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends
 
-from src.auth.db import User
-from src.auth.users import current_active_user
-from src.config import REDIS_HOST
-from src.database import get_async_session
-from src.links.repository import LinkRepository
-from src.links.schemas import LinkCreate, LinkUpdate, LinkStats, LinkCreateUnauthorized
-from src.links.service import LinkService
+from app.auth.db import User
+from app.auth.users import current_active_user
+from app.config import REDIS_HOST
+from app.database import get_async_session
+from app.links.repository import LinkRepository
+from app.links.schemas import LinkCreate, LinkUpdate, LinkStats, LinkCreateUnauthorized
+from app.links.service import LinkService
 
 router = APIRouter(prefix="/links")
 
@@ -103,6 +103,7 @@ async def search_link(
 
     return links
 
+# Дополнительный метод получения всех истёкших ссылок
 
 @router.get("/expired/")
 async def search_link(
@@ -116,14 +117,16 @@ async def search_link(
     return links
 
 
+#Сделал методы для получения сокращенных ссылок для незарегистрированных пользователей
+
 @router.post("/unauthorized/shorten")
 async def shorten_link_unauthorized(
         data: LinkCreateUnauthorized
 ):
     service = LinkService(None, redis_client)
-    link = await service.create_unauthorized_link(data.original_url)
+    short_code = await service.create_unauthorized_link(data.original_url)
     return {
-        "short_url": f"{link.short_code}"
+        "short_url": f"{short_code}"
     }
 
 
